@@ -1,5 +1,4 @@
 echo "Welcome Flip Coin Simulation"
-
 read -p "Enter the number of times you want to flip the coin: " num
 echo "Enter "
 echo "1)Singlet"
@@ -30,7 +29,6 @@ function getResult()
 	echo $result
 }
 
-
 for (( i=0; i<num; i++ ))
 do
 	result=$( getResult $choice )
@@ -54,4 +52,22 @@ do
 	coinperDict[$key]=$per
 done
 
-echo "Percent Dictonary: "${coinperDict[@]}
+max=${coinArray[0]}
+len="${#coinArray[@]}"
+for (( i=1; i<$len; i++ ))
+do
+        if [[ ${coinArray[$i]} -gt $max ]]
+        then
+                max=${coinArray[$i]}
+        fi
+done
+
+for key in ${!coinDictionary[@]}
+do
+        if [[ ${coinDictionary[$key]} -eq $max ]]
+        then
+                percent=`echo $max $num | awk '{print ($1/$2)*100}'`	
+                echo $key":"$percent"%"
+                exit 1
+        fi
+done
