@@ -12,6 +12,7 @@ declare -A coinDictionary
 declare -A coinperDict
 declare -a coinArray
 
+# Function return the result of flips
 function getResult()
 {
 	local result=''
@@ -29,6 +30,7 @@ function getResult()
 	echo $result
 }
 
+# Store the result of flip into dictiory
 for (( i=0; i<num; i++ ))
 do
 	result=$( getResult $choice )
@@ -40,10 +42,11 @@ do
 		coinDictionary[$result]=1
 	fi
 done
+#Show the result
 echo "Keys:  "${!coinDictionary[@]}
 echo "Values: "${coinDictionary[@]}
 
-# Create a array from Dictionary values
+# Create a array from Dictionary values and percentage of dictionary values
 cnt=0
 for key in ${!coinDictionary[@]}
 do
@@ -52,6 +55,7 @@ do
 	coinperDict[$key]=$per
 done
 
+# Find out the maximum values
 max=${coinArray[0]}
 len="${#coinArray[@]}"
 for (( i=1; i<$len; i++ ))
@@ -62,6 +66,7 @@ do
         fi
 done
 
+#Show the maximum flip with percentage
 for key in ${!coinDictionary[@]}
 do
         if [[ ${coinDictionary[$key]} -eq $max ]]
