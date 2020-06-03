@@ -1,6 +1,12 @@
 echo "Welcome Flip Coin Simulation"
 
 read -p "Enter the number of times you want to flip the coin: " num
+echo "Enter "
+echo "1)Singlet"
+echo "2)Doublet"
+echo "3)Triplet"
+read -p "Enter Your Choice: " choice
+
 HEAD='H'
 TAIL='T'
 declare -A coinDictionary
@@ -10,7 +16,7 @@ declare -a coinArray
 function getResult()
 {
 	local result=''
-	for (( i=0; i<2; i++ ))
+	for (( i=0; i<$1; i++ ))
 	do
 		coin=$(( RANDOM%2 ))
 		if [ $coin -eq 0 ]
@@ -27,7 +33,7 @@ function getResult()
 
 for (( i=0; i<num; i++ ))
 do
-	result=$( getResult )
+	result=$( getResult $choice )
 	if [[ ${coinDictionary[$result]} ]]
 	then
 		count=${coinDictionary[$result]}
